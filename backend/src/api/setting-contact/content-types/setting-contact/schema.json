@@ -1,0 +1,30 @@
+{
+  "kind": "singleType",
+  "collectionName": "setting_contacts",
+  "info": {
+    "singularName": "setting-contact",
+    "pluralName": "setting-contacts",
+    "displayName": "Setting Contact"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Email": {
+      "type": "string"
+    },
+    "PhoneNumber": {
+      "type": "string"
+    },
+    "WhatsApp": {
+      "type": "string"
+    },
+    "Address": {
+      "type": "string"
+    },
+    "PhoneNumber2": {
+      "type": "string"
+    }
+  }
+}
