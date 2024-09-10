@@ -11,10 +11,9 @@ const DataContextProvider = (props) => {
   const [data, setData] = useState(null);
   const [isPending, setIsPending] = useState(false);
   const cookies = new Cookies();
-  const rootURL = process.env.REACT_APP_DOMAIN ? process.env.REACT_APP_DOMAIN : 'http://localhost:1337';
-
-  console.log(process.env.REACT_APP_DOMAIN);
-  console.log('rootURL =>', process.env.REACT_APP_DOMAIN);
+  const rootURL = process.env.REACT_APP_SERVER_DOMAIN
+    ? process.env.REACT_APP_SERVER_DOMAIN
+    : process.env.REACT_APP_DOMAIN;
 
   // NOTIFICATIONS
   const toastId = useRef(null);
@@ -158,7 +157,11 @@ const DataContextProvider = (props) => {
         throw new Error(res.statusText);
       }
       const uploadedImage = await res.json();
-      const uploadedImageData = { ImgID: uploadedImage[0]?.id, ImgName: uploadedImage[0]?.name, ImgURL: uploadedImage[0]?.url };
+      const uploadedImageData = {
+        ImgID: uploadedImage[0]?.id,
+        ImgName: uploadedImage[0]?.name,
+        ImgURL: uploadedImage[0]?.url,
+      };
       const formData = { ...userInputData, ...uploadedImageData };
       if (flag === 'create') await createData(baseURL, formData);
       if (flag === 'update') await updateData(baseURL, userInputData.entryId, formData);
@@ -180,7 +183,19 @@ const DataContextProvider = (props) => {
   };
 
   return (
-    <DataContext.Provider value={{ data, rootURL, isPending, createData, readData, updateData, deleteData, uploadNewImage, deleteOldImage }}>
+    <DataContext.Provider
+      value={{
+        data,
+        rootURL,
+        isPending,
+        createData,
+        readData,
+        updateData,
+        deleteData,
+        uploadNewImage,
+        deleteOldImage,
+      }}
+    >
       {props.children}
     </DataContext.Provider>
   );
